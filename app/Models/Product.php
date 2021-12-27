@@ -14,6 +14,11 @@ class Product extends Model
         'description'
     ];
 
+    public function categories()
+    {
+        return $this->belongsToMany(Category::class);
+    }
+
     public function photos()
     {
         return $this->hasMany(Photo::class);
