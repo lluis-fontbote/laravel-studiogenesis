@@ -9,6 +9,13 @@ class Price extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'name',
+        'description',
+        'start_date',
+        'end_date'
+    ];
+
     public function product()
     {
         return $this->belongsTo(Product::class);
