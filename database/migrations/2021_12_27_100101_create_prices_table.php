@@ -16,7 +16,7 @@ class CreatePricesTable extends Migration
         Schema::create('prices', function (Blueprint $table) {
             $table->id();
             $table->string('name')->nullable();
-            $table->tinyText('description');
+            $table->tinyText('description')->nullable();
             $table->foreignId('product_id');
             $table->dateTime('start_date');
             $table->dateTime('end_date');
