@@ -17,6 +17,7 @@ class CreatePricesTable extends Migration
             $table->id();
             $table->string('name')->nullable();
             $table->tinyText('description')->nullable();
+            $table->decimal('amount', 8, 2);
             $table->foreignId('product_id');
             $table->dateTime('start_date');
             $table->dateTime('end_date');
