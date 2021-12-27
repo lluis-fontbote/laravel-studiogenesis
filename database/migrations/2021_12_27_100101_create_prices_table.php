@@ -21,6 +21,8 @@ class CreatePricesTable extends Migration
             $table->dateTime('start_date');
             $table->dateTime('end_date');
             $table->timestamps();
+
+            $table->foreign('product_id')->references('id')->on('products');
         });
     }
 

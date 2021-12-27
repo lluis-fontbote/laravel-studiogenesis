@@ -18,6 +18,9 @@ class CreateCategoriesCategoriesTable extends Migration
             $table->foreignId('parent_id');
             $table->foreignId('child_id');
             $table->timestamps();
+
+            $table->foreign('parent_id')->references('id')->on('categories');
+            $table->foreign('child_id')->references('id')->on('categories');
         });
     }
 
