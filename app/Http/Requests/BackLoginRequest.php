@@ -3,7 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Rule;
 
 class BackLoginRequest extends FormRequest
 {
@@ -27,7 +27,7 @@ class BackLoginRequest extends FormRequest
         return [
             'email' => 'required|email',
             'password' => 'required',
-            'rememberPasswordCheck' => 'boolean|nullable'
+            'rememberMe' => Rule::in('true', 'false', 'null')
         ];
     }
 

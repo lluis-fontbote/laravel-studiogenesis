@@ -35,8 +35,8 @@
                     </div>
 
                     <div class="form-check mb-3">
-                        <input class="form-check-input" type="checkbox" value="" name="rememberPasswordCheck" id="rememberPasswordCheck">
-                        <label class="form-check-label" for="rememberPasswordCheck">
+                        <input class="form-check-input" type="checkbox" value="true" name="rememberMe" id="rememberMe">
+                        <label class="form-check-label" for="rememberMe">
                         Recuérdame
                         </label>
                     </div>
