@@ -12,7 +12,11 @@ class LoginController extends Controller
     public function login()
     {   
         if (Auth::user()) {
-            return view('welcome');
+            if (Auth::user()->is_admin) {
+                return redirect()->route('back.user.index');
+            } else {
+                return redirect()->route('back.category.index');
+            }
 
         } else {
             return view('back.login');
@@ -24,7 +28,12 @@ class LoginController extends Controller
         if (Auth::attempt(['email' => $request->email, 'password' => $request->password], 
                           $request->rememberMe ?? false)) {
             $request->session()->regenerate();
-            return redirect()->intended();
+
+            if (Auth::user()->is_admin) {
+                return redirect()->route('back.user.index');
+            } else {
+                return redirect()->route('back.category.index');
+            }
             
         } else {
             return back()->withErrors(['wrongCredentials' => 'Credenciales incorrectas']);
