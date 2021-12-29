@@ -12,12 +12,14 @@ Route::middleware(['throttle:login'])->group(function() {
 });
 
 Route::middleware('auth')->name('back.')->group(function() {
-    Route::get('/usuarios', [UserController::class, 'index'])->name('user.index');
-    Route::get('/usuarios/crear', [UserController::class, 'create'])->name('user.create');
-    Route::post('/usuarios/insertar', [UserController::class, 'store'])->name('user.store');
-    Route::get('/usuarios/editar/{id}', [UserController::class, 'edit'])->name('user.edit');
-    Route::post('/usuarios/actualizar', [UserController::class, 'update'])->name('user.update');
-    Route::get('/usuarios/eliminar/{id}', [UserController::class, 'destroy'])->name('user.destroy');
+    Route::middleware('admin')->group(function() {
+        Route::get('/usuarios', [UserController::class, 'index'])->name('user.index');
+        Route::get('/usuarios/crear', [UserController::class, 'create'])->name('user.create');
+        Route::post('/usuarios/insertar', [UserController::class, 'store'])->name('user.store');
+        Route::get('/usuarios/editar/{id}', [UserController::class, 'edit'])->name('user.edit');
+        Route::post('/usuarios/actualizar', [UserController::class, 'update'])->name('user.update');
+        Route::get('/usuarios/eliminar/{id}', [UserController::class, 'destroy'])->name('user.destroy');
+    });
 
     Route::get('/categorias', [CategoryController::class, 'index'])->name('category.index');
     Route::get('/categorias/crear', [CategoryController::class, 'create'])->name('category.create');
@@ -34,3 +36,7 @@ Route::middleware('auth')->name('back.')->group(function() {
     Route::post('/productos/actualizar', [ProductController::class, 'update'])->name('product.update');
     Route::get('/productos/eliminar/{id}', [ProductController::class, 'destroy'])->name('product.destroy');
 });
+
+Route::get('/denegado', function() {
+    return view('errors.401');
+})->name('denied');
