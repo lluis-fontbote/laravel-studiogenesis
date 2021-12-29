@@ -1,28 +1,31 @@
-@extends('back.mainLayout')
-
-@section('css')
-<style>
-    body {
-        background: #007bff;
-        background: linear-gradient(to right, #0062E6, #33AEFF);
-    }
-
-    .btn-login {
-        font-size: 0.9rem;
-        letter-spacing: 0.05rem;
-        padding: 0.75rem 1rem;
-    }
-</style>
-@endsection
-
-@section('content')
-
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Login</title>
+    <link rel="stylesheet" href="{{ asset('css/back.css') }}">
+    <style>
+        body {
+            background: #007bff;
+            background: linear-gradient(to right, #0062E6, #33AEFF);
+        }
+    
+        .btn-login {
+            font-size: 0.9rem;
+            letter-spacing: 0.05rem;
+            padding: 0.75rem 1rem;
+        }
+    </style>
+</head>
+<body>
     <div class="container">
         <div class="row">
         <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
             <div class="card border-0 shadow rounded-3 my-5">
             <div class="card-body p-4 p-sm-5">
-                <h5 class="card-title text-center mb-5 fw-light fs-5">Iniciar sesión</h5>
+                <h3 class="text-center font-weight-light my-4">Iniciar sesión</h3>
                 <form action="{{ route('handleLogin') }}" method="POST">
                     @csrf
                     <div class="form-floating mb-3">
@@ -40,7 +43,8 @@
                         Recuérdame
                         </label>
                     </div>
-                    <div class="d-grid">
+                    <div class="d-flex align-items-center justify-content-between mt-4 mb-0">
+                        <a class="small" href="password.html">Olvidaste tu contraseña?</a>
                         <button class="btn btn-primary btn-login text-uppercase fw-bold" type="submit">Iniciar sesión</button>
                     </div>
                     <div class="mt-3">
@@ -58,4 +62,5 @@
         </div>
         </div>
     </div>
-@endsection
+</body>
+</html>
