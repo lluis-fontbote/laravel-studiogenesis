@@ -30,11 +30,13 @@
                         <th>Código</th>
                         <th>Nombre</th>
                         <th>Descripción</th>
+                        <th>Acciones</th>
                     </tr>
                 </thead>
                 <tbody class="table-hover">
                     @foreach ($categories as $category)
                     <tr>
+                        <td>{{ $category->id }}</td>
                         <td>{{ $category->name }}</td>
                         <td>{{ Str::limit($category->description, 70) }}</td>
                         <td>
