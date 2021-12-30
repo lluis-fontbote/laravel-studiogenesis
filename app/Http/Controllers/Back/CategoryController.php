@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Back;
 
+use App\Http\Controllers\Controller;
+use App\Models\Category;
 use Illuminate\Http\Request;
 
 class CategoryController extends Controller
@@ -13,7 +15,8 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        //
+        $categories = Category::paginate(10);
+        return view('back.category.index', compact('categories'));
     }
 
     /**
@@ -23,7 +26,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        //
+        return view('back.category.form');
     }
 
     /**
@@ -34,18 +37,12 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
-    }
+        $category = Category::create([
+            'name' => $request->name,
+            'description' => $request->description
+        ]);
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
+        return view('back.category.form', compact('category'))->with('actionOnCategory', 'Categoría creada correctamente');
     }
 
     /**
@@ -56,7 +53,8 @@ class CategoryController extends Controller
      */
     public function edit($id)
     {
-        //
+        $category = Category::find($id);
+        return view('back.category.form', compact('category'));
     }
 
     /**
@@ -66,9 +64,14 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        $category = Category::find($request->id);
+        $category->name = $request->name;
+        $category->description = $request->description;
+        $category->save();
+
+        return view('back.category.form', compact('category'))->with('actionOnCategory', 'Categoría actualizada correctamente');
     }
 
     /**
@@ -79,6 +82,7 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Category::destroy($id);
+        return redirect()->route('back.category.index')->with('actionOnCategory', 'Categoría eliminada correctamente');
     }
 }
