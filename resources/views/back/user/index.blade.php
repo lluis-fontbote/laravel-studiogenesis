@@ -22,6 +22,11 @@
             Aquí se muestran todos los usuarios registrados.
         </div>
     </div>
+    @if (session()->has('actionOnUser'))
+    <div class="alert alert-danger" role="alert">
+        {{ session()->get('actionOnUser') }}
+    </div>
+    @endif
     <div class="card mb-4">
         <div class="card-header">
             <i class="fas fa-table me-1"></i>
@@ -53,7 +58,7 @@
                             <a href='{{ route('back.user.edit', $user->id) }}' class='btn btn-primary m-r-lem'>
                                 <i class="fas fa-edit"></i> Editar
                             </a> 
-                            <a href='{{ route('back.product.destroy', $user->id) }}' class='btn btn-danger'>
+                            <a href='{{ route('back.user.destroy', $user->id) }}' class='btn btn-danger'>
                                 <i class="fas fa-trash-alt"></i> Eliminar
                             </a>
                         </td>
