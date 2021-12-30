@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\File;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -43,7 +44,7 @@ class UserController extends Controller
             'name' => $request->name,
             'surname' => $request->surname,
             'email' => $request->email,
-            'password' => $request->password,
+            'password' => Hash::make($request->password),
             'photo' => $request->hasFile('photo') ? $request->file('photo')->getClientOriginalName() : 'default.png',
             'is_admin' => $request->is_admin ? true : false
         ]);
@@ -88,7 +89,7 @@ class UserController extends Controller
             'name' => $request->name,
             'surname' => $request->surname,
             'email' => $request->email,
-            'password' => $request->password,
+            'password' => Hash::make($request->password),
             'photo' => $request->hasFile('photo') ? $request->file('photo')->getClientOriginalName() : $user->photo,
             'is_admin' => $request->is_admin ? true : false
         ]); 
