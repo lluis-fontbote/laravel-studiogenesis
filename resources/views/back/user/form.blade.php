@@ -8,7 +8,7 @@
         <li class="breadcrumb-item"><a href="{{ route('back.user.index') }}">Usuarios</a></li>
         <li class="breadcrumb-item active">Crear</li>
     </ol>
-    @if ($actionOnUser)
+    @isset ($actionOnUser)
     <div class="alert alert-success" role="alert">
         {{ $actionOnUser }}
     </div>
