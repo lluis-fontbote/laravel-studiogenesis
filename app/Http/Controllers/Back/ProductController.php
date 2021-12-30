@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Back;
 
+use App\Http\Controllers\Controller;
+use App\Models\Product;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -13,7 +15,8 @@ class ProductController extends Controller
      */
     public function index()
     {
-        //
+        $products = Product::paginate(10);
+        return view('back.product.index', compact('products'));
     }
 
     /**
@@ -22,8 +25,8 @@ class ProductController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create()
-    {
-        //
+    {   
+        return view('back.product.form');
     }
 
     /**
@@ -34,19 +37,19 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $product = Product::create([
+            'name' => $request->name,
+            'description' => $request->description
+        ]);
+
+        return view('back.product.form', compact('product'))->with('actionOnProduct', 'Categoría creada correctamente');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
+    // public function show(Request $request) 
+    // {
+    //     dd($request);
+    //     return 'adeu';
+    // }
 
     /**
      * Show the form for editing the specified resource.
@@ -56,7 +59,8 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
-        //
+        $product = Product::find($id);
+        return view('back.product.form', compact('product'));
     }
 
     /**
@@ -66,9 +70,14 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        $product = Product::find($request->id);
+        $product->name = $request->name;
+        $product->description = $request->description;
+        $product->save();
+
+        return view('back.product.form', compact('product'))->with('actionOnProduct', 'Producto actualizado correctamente');
     }
 
     /**
@@ -79,6 +88,7 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Product::destroy($id);
+        return redirect()->route('back.product.index')->with('actionOnProduct', 'Producto eliminado correctamente');
     }
 }

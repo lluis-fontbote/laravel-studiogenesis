@@ -29,8 +29,8 @@ Route::middleware('auth')->name('back.')->group(function() {
     Route::get('/categorias/eliminar/{id}', [CategoryController::class, 'destroy'])->name('category.destroy');
 
     Route::get('/productos', [ProductController::class, 'index'])->name('product.index');
-    Route::get('/productos/{id}', [ProductController::class, 'show'])->name('product.show');
     Route::get('/productos/crear', [ProductController::class, 'create'])->name('product.create');
+    // Route::get('/productos/ver/{id}', [ProductController::class, 'show'])->name('product.show');
     Route::post('/productos/insertar', [ProductController::class, 'store'])->name('product.store');
     Route::get('/productos/editar/{id}', [ProductController::class, 'edit'])->name('product.edit');
     Route::post('/productos/actualizar', [ProductController::class, 'update'])->name('product.update');
