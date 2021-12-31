@@ -19,7 +19,7 @@ class Category extends Model
         return $this->belongsToMany(Category::class, 'categories_categories', 'parent_id', 'child_id');
     }
 
-    public function childs()
+    public function children()
     {
         return $this->belongsToMany(Category::class, 'categories_categories', 'child_id', 'parent_id');
     }
