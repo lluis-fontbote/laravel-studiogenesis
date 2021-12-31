@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Category;
 use Illuminate\Http\Request;
 
-class CategoryController extends Controller
+class ChildCategoryController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,8 +15,8 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = Category::paginate(10);
-        return view('back.category.index', compact('categories'));
+        $categories = Category::where('is_parent', false)->paginate(10);
+        return view('back.childCategory.index', compact('categories'));
     }
 
     /**
@@ -26,7 +26,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        return view('back.category.form');
+        return view('back.childCategory.form');
     }
 
     /**
@@ -42,7 +42,7 @@ class CategoryController extends Controller
             'description' => $request->description
         ]);
 
-        return view('back.category.form', compact('category'))->with('actionOnCategory', 'Categoría creada correctamente');
+        return view('back.childCategory.form', compact('category'))->with('actionOnCategory', 'Categoría creada correctamente');
     }
 
     /**
@@ -54,7 +54,7 @@ class CategoryController extends Controller
     public function edit($id)
     {
         $category = Category::find($id);
-        return view('back.category.form', compact('category'));
+        return view('back.childCategory.form', compact('category'));
     }
 
     /**
@@ -71,7 +71,7 @@ class CategoryController extends Controller
         $category->description = $request->description;
         $category->save();
 
-        return view('back.category.form', compact('category'))->with('actionOnCategory', 'Categoría actualizada correctamente');
+        return view('back.childCategory.form', compact('category'))->with('actionOnCategory', 'Categoría actualizada correctamente');
     }
 
     /**
@@ -83,7 +83,7 @@ class CategoryController extends Controller
     public function destroy($id)
     {
         Category::destroy($id);
-        return redirect()->route('back.category.index')->with('actionOnCategory', 'Categoría eliminada correctamente');
+        return redirect()->route('back.childCategory.index')->with('actionOnCategory', 'Categoría eliminada correctamente');
     }
 
     public function filter(Request $request)
@@ -94,3 +94,4 @@ class CategoryController extends Controller
         return ["results" => $categories];
     }
 }
+

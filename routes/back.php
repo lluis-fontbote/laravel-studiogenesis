@@ -3,7 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Back\LoginController;
 use App\Http\Controllers\Back\UserController;
-use App\Http\Controllers\Back\CategoryController;
+use App\Http\Controllers\Back\ParentCategoryController;
+use App\Http\Controllers\Back\ChildCategoryController;
 use App\Http\Controllers\Back\ProductController;
 
 Route::middleware(['throttle:login'])->group(function() {
@@ -21,13 +22,21 @@ Route::middleware('auth')->name('back.')->group(function() {
         Route::get('/usuarios/eliminar/{id}', [UserController::class, 'destroy'])->name('user.destroy');
     });
 
-    Route::get('/categorias', [CategoryController::class, 'index'])->name('category.index');
-    Route::get('/categorias/crear', [CategoryController::class, 'create'])->name('category.create');
-    Route::post('/categorias/insertar', [CategoryController::class, 'store'])->name('category.store');
-    Route::get('/categorias/editar/{id}', [CategoryController::class, 'edit'])->name('category.edit');
-    Route::post('/categorias/actualizar', [CategoryController::class, 'update'])->name('category.update');
-    Route::get('/categorias/eliminar/{id}', [CategoryController::class, 'destroy'])->name('category.destroy');
-    Route::get('/categorias/filtrar', [CategoryController::class, 'filter'])->name('category.filter');
+    Route::get('/categorias-padres', [ParentCategoryController::class, 'index'])->name('parentCategory.index');
+    Route::get('/categorias-padres/crear', [ParentCategoryController::class, 'create'])->name('parentCategory.create');
+    Route::post('/categorias-padres/insertar', [ParentCategoryController::class, 'store'])->name('parentCategory.store');
+    Route::get('/categorias-padres/editar/{id}', [ParentCategoryController::class, 'edit'])->name('parentCategory.edit');
+    Route::post('/categorias-padres/actualizar', [ParentCategoryController::class, 'update'])->name('parentCategory.update');
+    Route::get('/categorias-padres/eliminar/{id}', [ParentCategoryController::class, 'destroy'])->name('parentCategory.destroy');
+    Route::get('/categorias-padres/filtrar', [ParentCategoryController::class, 'filter'])->name('parentCategory.filter');
+
+    Route::get('/categorias-hijas', [ChildCategoryController::class, 'index'])->name('childCategory.index');
+    Route::get('/categorias-hijas/crear', [ChildCategoryController::class, 'create'])->name('childCategory.create');
+    Route::post('/categorias-hijas/insertar', [ChildCategoryController::class, 'store'])->name('childCategory.store');
+    Route::get('/categorias-hijas/editar/{id}', [ChildCategoryController::class, 'edit'])->name('childCategory.edit');
+    Route::post('/categorias-hijas/actualizar', [ChildCategoryController::class, 'update'])->name('childCategory.update');
+    Route::get('/categorias-hijas/eliminar/{id}', [ChildCategoryController::class, 'destroy'])->name('childCategory.destroy');
+    Route::get('/categorias-hijas/filtrar', [ChildCategoryController::class, 'filter'])->name('childCategory.filter');
 
     Route::get('/productos', [ProductController::class, 'index'])->name('product.index');
     Route::get('/productos/crear', [ProductController::class, 'create'])->name('product.create');

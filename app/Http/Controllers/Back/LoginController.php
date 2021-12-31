@@ -15,7 +15,7 @@ class LoginController extends Controller
             if (Auth::user()->is_admin) {
                 return redirect()->route('back.user.index');
             } else {
-                return redirect()->route('back.category.index');
+                return redirect()->route('back.parentCategory.index');
             }
 
         } else {
@@ -32,7 +32,8 @@ class LoginController extends Controller
             if (Auth::user()->is_admin) {
                 return redirect()->route('back.user.index');
             } else {
-                return redirect()->route('back.category.index');
+                return redirect()->route('back.parentCategory
+                .index');
             }
             
         } else {

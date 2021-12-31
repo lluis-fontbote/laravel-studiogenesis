@@ -2,15 +2,15 @@
 
 @section('content')
 <div class="container-fluid px-4">
-    <h1 class="mt-4">Categorías</h1>
+    <h1 class="mt-4">Categorías hijas</h1>
     <ol class="breadcrumb mb-4">
         <li class="breadcrumb-item"><a href="{{ route('login') }}">Panel</a></li>
-        <li class="breadcrumb-item active">Categorías</li>
+        <li class="breadcrumb-item active">Categorías hijas</li>
         <li class="breadcrumb-item active">Índice</li>
     </ol>
     <div class="card mb-4">
         <div class="card-body">
-            Aquí se muestran todos las categorías.
+            Aquí se muestran todos las categorías hijas.
         </div>
     </div>
     @if (session()->has('actionOnCategory'))
@@ -40,10 +40,10 @@
                         <td>{{ $category->name }}</td>
                         <td>{{ Str::limit($category->description, 70) }}</td>
                         <td>
-                            <a href='{{ route('back.category.edit', $category->id) }}' class='btn btn-primary m-r-lem'>
+                            <a href='{{ route('back.parentCategory.edit', $category->id) }}' class='btn btn-primary m-r-lem'>
                                 <i class="fas fa-edit"></i> Editar
                             </a> 
-                            <a href='{{ route('back.category.destroy', $category->id) }}' class='btn btn-danger'>
+                            <a href='{{ route('back.parentCategory.destroy', $category->id) }}' class='btn btn-danger'>
                                 <i class="fas fa-trash-alt"></i> Eliminar
                             </a>
                         </td>

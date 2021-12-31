@@ -58,17 +58,33 @@
                         </div>
                         @endif
                        
-                        <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseCategories" aria-expanded="false" aria-controls="collapseLayouts">
+                        <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseParentCategories" aria-expanded="false" aria-controls="collapseLayouts">
                             <div class="sb-nav-link-icon"><i class="fas fa-tag"></i></div>
-                            Categorías
+                            Categorías padres
                             <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                         </a>
-                        <div class="collapse" id="collapseCategories" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
+                        <div class="collapse" id="collapseParentCategories" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                             <nav class="sb-sidenav-menu-nested nav">
-                                <a class="nav-link" href="{{ route('back.category.index') }}">
+                                <a class="nav-link" href="{{ route('back.parentCategory.index') }}">
                                     <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div> Índice
                                 </a>
-                                <a class="nav-link" href="{{ route('back.category.create') }}">
+                                <a class="nav-link" href="{{ route('back.parentCategory.create') }}">
+                                    <div class="sb-nav-link-icon"><i class="fas fa-plus-square"></i></div> Crear
+                                </a>
+                            </nav>
+                        </div>
+
+                        <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseChildCategories" aria-expanded="false" aria-controls="collapseLayouts">
+                            <div class="sb-nav-link-icon"><i class="fas fa-tag"></i></div>
+                            Categorías hijas
+                            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                        </a>
+                        <div class="collapse" id="collapseChildCategories" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
+                            <nav class="sb-sidenav-menu-nested nav">
+                                <a class="nav-link" href="{{ route('back.childCategory.index') }}">
+                                    <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div> Índice
+                                </a>
+                                <a class="nav-link" href="{{ route('back.childCategory.create') }}">
                                     <div class="sb-nav-link-icon"><i class="fas fa-plus-square"></i></div> Crear
                                 </a>
                             </nav>
