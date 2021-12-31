@@ -27,6 +27,7 @@ Route::middleware('auth')->name('back.')->group(function() {
     Route::get('/categorias/editar/{id}', [CategoryController::class, 'edit'])->name('category.edit');
     Route::post('/categorias/actualizar', [CategoryController::class, 'update'])->name('category.update');
     Route::get('/categorias/eliminar/{id}', [CategoryController::class, 'destroy'])->name('category.destroy');
+    Route::get('/categorias/filtrar', [CategoryController::class, 'filter'])->name('category.filter');
 
     Route::get('/productos', [ProductController::class, 'index'])->name('product.index');
     Route::get('/productos/crear', [ProductController::class, 'create'])->name('product.create');

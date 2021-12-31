@@ -41,8 +41,9 @@ class ProductController extends Controller
             'name' => $request->name,
             'description' => $request->description
         ]);
+        $product->categories()->attach($request->categories);
 
-        return view('back.product.form', compact('product'))->with('actionOnProduct', 'Categoría creada correctamente');
+        return view('back.product.form', compact('product'))->with('actionOnProduct', 'Producto creado correctamente');
     }
 
     // public function show(Request $request) 
@@ -59,7 +60,9 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
-        $product = Product::find($id);
+        $product = Product::where('id', $id)
+                          ->with('categories')
+                          ->withCount('categories')->first();
         return view('back.product.form', compact('product'));
     }
 
@@ -76,6 +79,7 @@ class ProductController extends Controller
         $product->name = $request->name;
         $product->description = $request->description;
         $product->save();
+        $product->categories()->sync($request->categories);
 
         return view('back.product.form', compact('product'))->with('actionOnProduct', 'Producto actualizado correctamente');
     }

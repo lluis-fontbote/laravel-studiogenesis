@@ -85,4 +85,12 @@ class CategoryController extends Controller
         Category::destroy($id);
         return redirect()->route('back.category.index')->with('actionOnCategory', 'Categoría eliminada correctamente');
     }
+
+    public function filter(Request $request)
+    {
+        $name = '%'.$request->term.'%';
+        $categories = Category::select('id', 'name as text')
+                    ->where('name', 'LIKE', $name)->limit(10)->get();
+        return ["results" => $categories];
+    }
 }
