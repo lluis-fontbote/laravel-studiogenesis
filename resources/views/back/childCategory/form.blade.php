@@ -10,7 +10,7 @@
     <ol class="breadcrumb mb-4">
         <li class="breadcrumb-item"><a href="{{ route('login') }}">Panel</a></li>
         <li class="breadcrumb-item"><a href="{{ route('back.childCategory.index') }}">Categorías hijas</a></li>
-        <li class="breadcrumb-item active">Crear</li>
+        <li class="breadcrumb-item active">{{ Route::is('back.parentCategory.create') ? 'Crear' : 'Editar' }}</li>
     </ol>
     
     @isset ($actionOnCategory)
