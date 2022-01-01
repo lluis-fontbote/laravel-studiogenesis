@@ -41,6 +41,41 @@
                 @endif  
             </select>
         </div>
+        <div class="mb-3" id="pricesContainer">
+            <div class="row">
+                <div class="col">
+                    <label for="">Precios</label>
+                    <br>
+                    <button id="addPrice" class="btn btn-dark" type="button">
+                        Añadir
+                    </button>
+                </div>
+            </div>
+            @isset($product->prices)
+                @foreach ($product->prices as $price)
+                <div class="row row-cols-lg-auto g-3 align-items-center mt-1 prices">
+                    <div class="form-group col">
+                    <label for="amount[]">Cantidad</label>
+                    <input type="number" class="form-control" id="amount[]" name="amount[]" 
+                            min="0.00" max="10000.00" step="0.01" value="{{ $price->amount }}"/>
+                    </div>
+                    <div class="form-group col">
+                    <label for="startDate[]">Inicio</label>
+                    <input type="date" class="form-control" name="startDate[]" id="startDate" 
+                           value="{{ date('Y-m-d', strtotime($price->start_date)) }}">
+                    </div>
+                    <div class="form-group col">
+                        <label for="endDate[]">Final</label>
+                        <input type="date" class="form-control" name="endDate[]" id="endDate[]" 
+                               value="{{ date('Y-m-d', strtotime($price->end_date)) }}">
+                    </div>
+                    <div class="form-group col" style="align-self: end;">
+                        <button class="btn btn-danger deletePrice" type="button">Elimina</button>
+                    </div>
+                </div>
+                @endforeach
+            @endisset
+        </div>
         <br>
         <button type="submit" class="btn btn-primary">Guardar</button>
     </form>
@@ -78,5 +113,34 @@
     });
     
    });
+</script>
+
+{{-- Adds and deletes price rows --}}
+<script>
+    $('#addPrice').click(function() {
+        $('#pricesContainer').append(
+            `<div class="row row-cols-lg-auto g-3 align-items-center mt-1 prices">
+                <div class="form-group col">
+                <label for="amount[]">Cantidad</label>
+                <input type="number" class="form-control" id="amount[]" name="amount[]" 
+                        min="0.00" max="10000.00" step="0.01" value="{{ $price->amount }}"/>
+                </div>
+                <div class="form-group col">
+                <label for="startDate[]">Inicio</label>
+                <input type="date" class="form-control" name="startDate[]" id="startDate" value="{{ $price->start_date }}">
+                </div>
+                <div class="form-group col">
+                    <label for="endDate[]">Final</label>
+                    <input type="date" class="form-control" name="endDate[]" id="endDate[]" value="{{ $price->end_date }}">
+                </div>
+                <div class="form-group col" style="align-self: end;">
+                    <button class="btn btn-danger deletePrice" type="button">Elimina</button>
+                </div>
+            </div>`
+        );
+    });
+    $(document).on('click','.deletePrice', function() {
+        $(this).closest('.prices').remove();
+    })
 </script>
 @endsection

@@ -14,7 +14,8 @@ class Price extends Model
         'description',
         'amount',
         'start_date',
-        'end_date'
+        'end_date',
+        'product_id'
     ];
 
     public function product()

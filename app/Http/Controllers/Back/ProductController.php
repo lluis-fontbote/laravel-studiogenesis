@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Back;
 
 use App\Http\Controllers\Controller;
+use App\Models\Price;
 use App\Models\Product;
 use Illuminate\Http\Request;
 
@@ -37,11 +38,27 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
+        // dd($request->startDate[0]);
         $product = Product::create([
             'name' => $request->name,
             'description' => $request->description
         ]);
+        
         $product->categories()->attach($request->categories);
+
+        $product->prices()->delete();
+        if (isset($request->amount)) {
+            $priceIDs = [];
+            for ($i = 0;  $i < count($request->amount);  $i++) {
+                $price = Price::create([
+                    'amount' => $request->amount[$i],
+                    'start_date' => $request->startDate[$i],
+                    'end_date' => $request->endDate[$i],
+                    'product_id' => $product->id
+                ]);
+                array_push($priceIDs, $price->id);
+            }
+        }
 
         return view('back.product.form', compact('product'))->with('actionOnProduct', 'Producto creado correctamente');
     }
@@ -79,7 +96,22 @@ class ProductController extends Controller
         $product->name = $request->name;
         $product->description = $request->description;
         $product->save();
+
         $product->categories()->sync($request->categories);
+
+        $product->prices()->delete();
+        if (isset($request->amount)) {
+            $priceIDs = [];
+            for ($i = 0;  $i < count($request->amount);  $i++) {
+                $price = Price::create([
+                    'amount' => $request->amount[$i],
+                    'start_date' => $request->startDate[$i],
+                    'end_date' => $request->endDate[$i],
+                    'product_id' => $product->id
+                ]);
+                array_push($priceIDs, $price->id);
+            }
+        }
 
         return view('back.product.form', compact('product'))->with('actionOnProduct', 'Producto actualizado correctamente');
     }
