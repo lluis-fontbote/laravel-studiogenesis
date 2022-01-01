@@ -26,7 +26,7 @@ class DatabaseSeeder extends Seeder
             'password' => Hash::make('1234'), 
             'is_admin' => true
         ]);
-        \App\Models\Product::factory()
+        \App\Models\Product::factory(30)
                            ->has(Photo::factory()->count(2))
                            ->has(Price::factory()->count(3))
                            ->has(Category::factory()->count(10))

@@ -14,7 +14,7 @@ class PhotoFactory extends Factory
     public function definition()
     {
         return [
-            'filename' => $this->faker->image('storage/app/public/productPhotos', 640, 480, 'fashion')
+            'filename' => basename($this->faker->image('storage/app/public/productPhotos', 640, 480, 'fashion'))
         ];
     }
 }
