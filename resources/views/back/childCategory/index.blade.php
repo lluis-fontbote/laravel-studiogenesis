@@ -10,7 +10,7 @@
     </ol>
     <div class="card mb-4">
         <div class="card-body">
-            Aquí se muestran todos las categorías hijas.
+            Aquí se muestran todas las categorías hijas.
         </div>
     </div>
     @if (session()->has('actionOnCategory'))

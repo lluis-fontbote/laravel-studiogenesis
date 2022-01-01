@@ -11,21 +11,33 @@ class Category extends Model
 
     protected $fillable = [
         'name',
-        'description'
+        'description',
+        'is_parent'
     ];
 
     public function parents()
     {
-        return $this->belongsToMany(Category::class, 'categories_categories', 'parent_id', 'child_id');
+        return $this->belongsToMany(Category::class, 'categories_categories', 'child_id', 'parent_id');
     }
 
     public function children()
     {
-        return $this->belongsToMany(Category::class, 'categories_categories', 'child_id', 'parent_id');
+        return $this->belongsToMany(Category::class, 'categories_categories', 'parent_id', 'child_id');
     }
 
     public function products()
     {
         return $this->belongsToMany(Product::class);
+    }
+
+    public function getAllChildrenIDs()
+    {
+        $children = $this->children;
+        $arrayIDs = [];
+        foreach ($children as $child) {
+            array_push($arrayIDs, $child->id);
+        }
+
+        return implode(',', $arrayIDs);
     }
 }

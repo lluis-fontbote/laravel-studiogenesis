@@ -17,6 +17,7 @@
         {{ $actionOnCategory }}
     </div>
     @endif
+    {{-- {{dd(get_defined_vars())}} --}}
     <form action="{{ Route::is('back.parentCategory.create') ? route('back.parentCategory.store') : route('back.parentCategory.update') }}" 
           method="POST" enctype="multipart/form-data">
         @csrf
@@ -32,11 +33,11 @@
             </textarea>
         </div>
         <div class="mb-3">
-            <label for="categories" class="form-label">Categorías</label>
-            <select name="categories" id="categories" class="form-control">
-                @if (isset($product) && $product->categories->count() > 0)
-                    @foreach ($product->categories as $category)
-                    <option value="{{ $category->id }}">{{ $category->name }}</option>
+            <label for="children" class="form-label">Categorías hijas</label>
+            <select name="children[]" id="children" class="form-control">
+                @if (isset($category) && $category->children->count() > 0)
+                    @foreach ($category->children as $child)
+                    <option value="{{ $child->id }}">{{ $child->name }}</option>
                     @endforeach
                 @endif  
             </select>
@@ -48,6 +49,7 @@
 @endsection
 
 @section('js')
+{{-- Jquery and select2, necessary for category select to work --}}
 <script
   src="https://code.jquery.com/jquery-3.6.0.min.js"
   integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
@@ -56,7 +58,7 @@
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 <script>
    document.addEventListener('DOMContentLoaded', function() {
-    $('#categories').select2({
+    $('#children').select2({
         ajax: {
             url: "{{ route('back.parentCategory.filter') }}",
             dataType: "JSON",
@@ -71,11 +73,13 @@
                 console.log("Error: " + thrownError);
             }
         },
-        placeholder: 'Selecciona categorías para el producto',
+        placeholder: 'Selecciona categorías hijas',
         allowClear: true,
         multiple: true
     });
-    
+    $('#children').val([
+        {{ isset($category) ? $category->getAllChildrenIDs() : ''}}
+      ]).change();
    });
 </script>
 @endsection

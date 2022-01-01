@@ -41,7 +41,6 @@
                 @endif  
             </select>
         </div>
-        {{-- Mostrar categories pares --}}
         <br>
         <button type="submit" class="btn btn-primary">Guardar</button>
     </form>
@@ -49,6 +48,7 @@
 @endsection
 
 @section('js')
+{{-- Jquery and select2, necessary for category select to work --}}
 <script
   src="https://code.jquery.com/jquery-3.6.0.min.js"
   integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
@@ -59,7 +59,7 @@
    document.addEventListener('DOMContentLoaded', function() {
     $('#categories').select2({
         ajax: {
-            url: "{{ route('back.category.filter') }}",
+            url: "{{ route('back.childCategory.filter') }}",
             dataType: "JSON",
             type: "GET",
             processResults: function (data) {

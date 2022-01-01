@@ -12,11 +12,13 @@
         <li class="breadcrumb-item"><a href="{{ route('back.childCategory.index') }}">Categorías hijas</a></li>
         <li class="breadcrumb-item active">Crear</li>
     </ol>
+    
     @isset ($actionOnCategory)
     <div class="alert alert-success" role="alert">
         {{ $actionOnCategory }}
     </div>
     @endif
+
     <form action="{{ Route::is('back.childCategory.create') ? route('back.childCategory.store') : route('back.childCategory.update') }}" 
           method="POST" enctype="multipart/form-data">
         @csrf
@@ -28,15 +30,15 @@
         </div>
         <div class="mb-3">
             <label for="description" class="form-label">Descripción</label>
-            <textarea name="description" id="description" class="form-control">{{ $category->description ?? '' }}
+            <textarea name="description" id="description" class="form-control" required>{{ $category->description ?? '' }}
             </textarea>
         </div>
         <div class="mb-3">
-            <label for="categories" class="form-label">Categorías</label>
-            <select name="categories" id="categories" class="form-control">
-                @if (isset($product) && $product->categories->count() > 0)
-                    @foreach ($product->categories as $category)
-                    <option value="{{ $category->id }}">{{ $category->name }}</option>
+            <label for="parents" class="form-label">Categorías padre</label>
+            <select name="parents" id="parents" class="form-control">
+                @if (isset($category) && $category->parents->count() > 0)
+                    @foreach ($category->parents as $parent)
+                    <option value="{{ $parent->id }}">{{ $parent->name }}</option>
                     @endforeach
                 @endif  
             </select>
@@ -48,6 +50,7 @@
 @endsection
 
 @section('js')
+{{-- Jquery and select2, necessary for category select to work --}}
 <script
   src="https://code.jquery.com/jquery-3.6.0.min.js"
   integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
@@ -56,9 +59,9 @@
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 <script>
    document.addEventListener('DOMContentLoaded', function() {
-    $('#categories').select2({
+    $('#parents').select2({
         ajax: {
-            url: "{{ route('back.childCategory.filter') }}",
+            url: "{{ route('back.parentCategory.filter') }}",
             dataType: "JSON",
             type: "GET",
             processResults: function (data) {
@@ -71,7 +74,7 @@
                 console.log("Error: " + thrownError);
             }
         },
-        placeholder: 'Selecciona categorías para el producto',
+        placeholder: 'Selecciona categorías padre',
         allowClear: true,
         multiple: true
     });

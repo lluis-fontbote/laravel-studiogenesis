@@ -89,7 +89,7 @@ class ChildCategoryController extends Controller
     public function filter(Request $request)
     {
         $name = '%'.$request->term.'%';
-        $categories = Category::select('id', 'name as text')
+        $categories = Category::where('is_parent', false)->select('id', 'name as text')
                     ->where('name', 'LIKE', $name)->limit(10)->get();
         return ["results" => $categories];
     }

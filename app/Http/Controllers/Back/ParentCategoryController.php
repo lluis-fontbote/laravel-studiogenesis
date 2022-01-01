@@ -39,8 +39,11 @@ class ParentCategoryController extends Controller
     {
         $category = Category::create([
             'name' => $request->name,
-            'description' => $request->description
+            'description' => $request->description,
+            'is_parent' => true
         ]);
+
+        $category->children()->attach($request->parents);
 
         return view('back.parentCategory.form', compact('category'))->with('actionOnCategory', 'Categoría creada correctamente');
     }
@@ -69,7 +72,10 @@ class ParentCategoryController extends Controller
         $category = Category::find($request->id);
         $category->name = $request->name;
         $category->description = $request->description;
+        $category->is_parent = true;
         $category->save();
+
+        $category->children()->sync($request->children);
 
         return view('back.parentCategory.form', compact('category'))->with('actionOnCategory', 'Categoría actualizada correctamente');
     }
@@ -82,14 +88,26 @@ class ParentCategoryController extends Controller
      */
     public function destroy($id)
     {
-        Category::destroy($id);
         return redirect()->route('back.parentCategory.index')->with('actionOnCategory', 'Categoría eliminada correctamente');
     }
     
+    public function confirmDestruction($id)
+    {
+        $category = Category::where('id', $id)->with('children')->get();
+        if ($category->children->total() > 0) {
+            foreach ($category->children as $child) {
+                $child->parents()->detach($id);
+            }
+        }
+        Category::destroy($id);
+
+        return redirect()->route('back.parentCategory.index')->with('actionOnCategory', 'Categoría eliminada correctamente');
+    }
+
     public function filter(Request $request)
     {
         $name = '%'.$request->term.'%';
-        $categories = Category::select('id', 'name as text')
+        $categories = Category::where('is_parent', true)->select('id', 'name as text')
                     ->where('name', 'LIKE', $name)->limit(10)->get();
         return ["results" => $categories];
     }

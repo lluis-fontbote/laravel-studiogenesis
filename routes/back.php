@@ -29,6 +29,8 @@ Route::middleware('auth')->name('back.')->group(function() {
     Route::post('/categorias-padres/actualizar', [ParentCategoryController::class, 'update'])->name('parentCategory.update');
     Route::get('/categorias-padres/eliminar/{id}', [ParentCategoryController::class, 'destroy'])->name('parentCategory.destroy');
     Route::get('/categorias-padres/filtrar', [ParentCategoryController::class, 'filter'])->name('parentCategory.filter');
+    Route::get('/categorias-padres/eliminar-confirmado/{id?}', [ParentCategoryController::class, 'confirmDestruction'])->name('parentCategory.confirmDestruction');
+    Route::get('/categorias-padres/eliminar-con-hijos/{id?}', [ParentCategoryController::class, 'destroyWithChildren'])->name('parentCategory.destroyWithChildren');
 
     Route::get('/categorias-hijas', [ChildCategoryController::class, 'index'])->name('childCategory.index');
     Route::get('/categorias-hijas/crear', [ChildCategoryController::class, 'create'])->name('childCategory.create');
