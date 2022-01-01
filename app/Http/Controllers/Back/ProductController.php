@@ -61,6 +61,19 @@ class ProductController extends Controller
             }
         }
 
+        if (isset($request->delete_product_photo)) {
+            Photo::destroy(array_keys($request->delete_product_photo));
+        }
+        if ($request->hasFile('photos')) {
+            foreach ($request->file('photos') as $photo) {
+                Storage::putFileAs('public/productPhotos', $photo, $photo->getClientOriginalName());
+                Photo::create([
+                    'filename' => basename($photo->getClientOriginalName()),
+                    'product_id' => $product->id
+                ]);
+            }
+        }
+
         return view('back.product.form', compact('product'))->with('actionOnProduct', 'Producto creado correctamente');
     }
 
