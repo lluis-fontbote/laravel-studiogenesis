@@ -10,7 +10,7 @@
     <ol class="breadcrumb mb-4">
         <li class="breadcrumb-item"><a href="{{ route('login') }}">Panel</a></li>
         <li class="breadcrumb-item"><a href="{{ route('back.product.index') }}">Productos</a></li>
-        <li class="breadcrumb-item active">Crear</li>
+        <li class="breadcrumb-item active">{{ Route::is('back.product.create') ? 'Crear' : 'Editar' }}</li>
     </ol>
     @isset ($actionOnProduct)
     <div class="alert alert-success" role="alert">
@@ -76,6 +76,29 @@
                 @endforeach
             @endisset
         </div>
+        <div id="photosContainer">
+            <div class="row">
+                <div class="col">
+                    <label for="">Imágenes</label>
+                </div>
+            </div>
+            @isset($product->photos)
+                @foreach ($product->photos as $photo)
+                    <div class="row photos mt-1">
+                        <div class="form-group col">
+                            <img src="{{ asset('storage/productPhotos') . '/' . $photo->filename }}" class="img-thumbnail" alt="...">
+                        </div> 
+                        <div class="form-group col">
+                            <label for="delete_product_photo[{{$photo->id}}]">Eliminar</label>
+                            <input type="checkbox" name="delete_product_photo[{{$photo->id}}]" id="delete_product_photo[{{$photo->id}}]">    
+                        </div>
+                    </div>
+                @endforeach
+            @endisset
+            <button id="addPhoto" class="btn btn-dark mt-1" type="button">
+                Añadir
+            </button>
+        </div>
         <br>
         <button type="submit" class="btn btn-primary">Guardar</button>
     </form>
@@ -123,15 +146,15 @@
                 <div class="form-group col">
                 <label for="amount[]">Cantidad</label>
                 <input type="number" class="form-control" id="amount[]" name="amount[]" 
-                        min="0.00" max="10000.00" step="0.01" value="{{ $price->amount }}"/>
+                        min="0.00" max="10000.00" step="0.01"/>
                 </div>
                 <div class="form-group col">
                 <label for="startDate[]">Inicio</label>
-                <input type="date" class="form-control" name="startDate[]" id="startDate" value="{{ $price->start_date }}">
+                <input type="date" class="form-control" name="startDate[]" id="startDate">
                 </div>
                 <div class="form-group col">
                     <label for="endDate[]">Final</label>
-                    <input type="date" class="form-control" name="endDate[]" id="endDate[]" value="{{ $price->end_date }}">
+                    <input type="date" class="form-control" name="endDate[]" id="endDate[]">
                 </div>
                 <div class="form-group col" style="align-self: end;">
                     <button class="btn btn-danger deletePrice" type="button">Elimina</button>
@@ -141,6 +164,22 @@
     });
     $(document).on('click','.deletePrice', function() {
         $(this).closest('.prices').remove();
+    })
+
+    $('#addPhoto').click(function() {
+        $('#photosContainer').append(
+            `<div class="row photos mt-1">
+                <div class="col">
+                    <input type="file" name="photos[]" id="photos[]" class="form-control">
+                </div>
+                <div class="col">
+                    <button class="btn btn-danger deletePhoto" type="button">Elimina</button>                            
+                </div>
+            </div>`
+        );
+    });
+    $(document).on('click','.deletePhoto', function() {
+        $(this).closest('.photos').remove();
     })
 </script>
 @endsection

@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\Back;
 
 use App\Http\Controllers\Controller;
+use App\Models\Photo;
 use App\Models\Price;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
@@ -38,7 +40,6 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request->startDate[0]);
         $product = Product::create([
             'name' => $request->name,
             'description' => $request->description
@@ -92,6 +93,7 @@ class ProductController extends Controller
      */
     public function update(Request $request)
     {
+        // dd($request);
         $product = Product::find($request->id);
         $product->name = $request->name;
         $product->description = $request->description;
@@ -112,6 +114,20 @@ class ProductController extends Controller
                 array_push($priceIDs, $price->id);
             }
         }
+
+        if (isset($request->delete_product_photo)) {
+            Photo::destroy(array_keys($request->delete_product_photo));
+        }
+        if ($request->hasFile('photos')) {
+            foreach ($request->file('photos') as $photo) {
+                Storage::putFileAs('public/productPhotos', $photo, $photo->getClientOriginalName());
+                Photo::create([
+                    'filename' => basename($photo->getClientOriginalName()),
+                    'product_id' => $product->id
+                ]);
+            }
+        }
+
 
         return view('back.product.form', compact('product'))->with('actionOnProduct', 'Producto actualizado correctamente');
     }
