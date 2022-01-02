@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Front;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Category;
 use App\Models\Product;
 
 class FrontController extends Controller
@@ -23,6 +24,7 @@ class FrontController extends Controller
                   ->first();
         }])->paginate(10);
         // dd($products);
-        return view('front.index', compact('products'));
+        $parents = Category::where('is_parent', true)->limit(5)->get();
+        return view('front.index', compact('products', 'parents'));
     }
 }
