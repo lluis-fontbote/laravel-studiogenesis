@@ -35,7 +35,11 @@ return [
     |
     */
 
-    'guards' => [
+    'guards' => [        
+        'api' => [
+            'driver' => 'jwt',
+            'provider' => 'users',
+        ],
         'back' => [
             'driver' => 'session',
             'provider' => 'users',
