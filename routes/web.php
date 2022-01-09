@@ -15,3 +15,5 @@ use App\Http\Controllers\Front\FrontController;
 */
 
 Route::get('/', [FrontController::class, 'index']);
+Route::post('/', [FrontController::class, 'filter'])->name('front.filter');
+

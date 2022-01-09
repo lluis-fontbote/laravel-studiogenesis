@@ -16,15 +16,31 @@ class FrontController extends Controller
      */
     public function index()
     {
+        $categories = Category::limit(5)->get();
+        
         $products = Product::with([
             'categories', 'photos', 
             'prices' => function($q) {
                 $q->where('start_date', '<=', now())
                   ->where('end_date', '>=', now())
                   ->first();
-        }])->paginate(10);
-        // dd($products);
-        $parents = Category::where('is_parent', true)->limit(5)->get();
-        return view('front.index', compact('products', 'parents'));
+        }])->paginate(9);
+
+        return view('front.index', compact('products', 'categories'));
+    }
+
+    public function filter(Request $request)
+    {
+        $categories = Category::limit(5)->get();
+        $products = Product::with([
+            'categories', 'photos', 
+            'prices' => function($q) {
+                $q->where('start_date', '<=', now())
+                  ->where('end_date', '>=', now());
+        }])->whereHas('categories', function($q) use ($request) {
+            $q->whereIn('categories.id', $request->categories_id);
+        })->paginate(9);
+
+        return view('front.index', compact('products', 'categories'));
     }
 }
