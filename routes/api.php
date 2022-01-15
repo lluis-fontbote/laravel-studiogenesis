@@ -14,7 +14,5 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Route::middleware('auth:sanctum')->group(function() {
-    Route::get('/categorias', [ApiController::class, 'getCategories']);
-    Route::get('/productos', [ApiController::class, 'getProducts']);
-// });
+Route::get('/categorias', [ApiController::class, 'getCategories']);
+Route::get('/productos', [ApiController::class, 'getProducts']);

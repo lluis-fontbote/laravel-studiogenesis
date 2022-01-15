@@ -21,6 +21,8 @@ Route::middleware('auth')->name('back.')->group(function() {
         Route::post('/usuarios/actualizar', [UserController::class, 'update'])->name('user.update');
         Route::get('/usuarios/eliminar/{id}', [UserController::class, 'destroy'])->name('user.destroy');
     });
+    Route::get('/generar-token', [UserController::class, 'createApiToken'])->name('user.createApiToken');
+    Route::post('/generar-token', [UserController::class, 'generateApiToken'])->name('user.generateApiToken');
 
     Route::get('/categorias-padres', [ParentCategoryController::class, 'index'])->name('parentCategory.index');
     Route::get('/categorias-padres/crear', [ParentCategoryController::class, 'create'])->name('parentCategory.create');

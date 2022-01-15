@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Back;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\GenerateApiTokenRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -108,5 +109,39 @@ class UserController extends Controller
     {
         User::destroy($id);
         return redirect()->route('back.user.index')->with('actionOnUser', 'Usuario eliminado correctamente');
+    }
+
+    public function createApiToken()
+    {
+        return view('back.user.apiToken');
+    }
+
+    public function generateApiToken(GenerateApiTokenRequest $request)
+    {
+        $token['value'] = auth()->guard('api')->attempt([
+            'email' => $request->email,
+            'password' => $request->password
+        ]);
+
+        if (isset($token['value'])) {
+            $token['type'] = 'Bearer';
+            $token['duration'] = auth()->guard('api')->factory()->getTTL();
+
+            return view('back.user.apiToken', compact('token'))
+                   ->with('tokenResponse', 'Token generado correctamente.');
+        } else {
+            return view('back.user.apiToken')
+                   ->with('tokenResponse', 'Credenciales inválidas');
+        }
+    }
+
+
+    protected function respondWithToken($token)
+    {
+        return response()->json([
+            'access_token' => $token,
+            'token_type' => 'bearer',
+            'expires_in' => auth()->factory()->getTTL() * 60
+        ]);
     }
 }
