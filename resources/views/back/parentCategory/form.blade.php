@@ -17,7 +17,7 @@
         {{ $actionOnCategory }}
     </div>
     @endif
-    {{-- {{dd(get_defined_vars())}} --}}
+
     <form action="{{ Route::is('back.parentCategory.create') ? route('back.parentCategory.store') : route('back.parentCategory.update') }}" 
           method="POST" enctype="multipart/form-data">
         @csrf

@@ -6,7 +6,7 @@
     <ol class="breadcrumb mb-4">
         <li class="breadcrumb-item"><a href="{{ route('login') }}">Panel</a></li>
         <li class="breadcrumb-item"><a href="{{ route('back.user.index') }}">Usuarios</a></li>
-        <li class="breadcrumb-item active">{{ Route::is('back.parentCategory.create') ? 'Crear' : 'Editar' }}</li>
+        <li class="breadcrumb-item active">{{ Route::is('back.user.create') ? 'Crear' : 'Editar' }}</li>
     </ol>
     @isset ($actionOnUser)
     <div class="alert alert-success" role="alert">
@@ -29,7 +29,7 @@
         </div>
         <div class="mb-3">
             <label for="email" class="form-label">Correo</label>
-            <input type="email" class="form-control" id="name" name="email"
+            <input type="email" class="form-control" id="email" name="email"
                 value="{{ $user->email ?? '' }}">
         </div>
         <div class="mb-3">
