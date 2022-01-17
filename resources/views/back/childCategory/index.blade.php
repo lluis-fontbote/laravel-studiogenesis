@@ -40,10 +40,10 @@
                         <td>{{ $category->name }}</td>
                         <td>{{ Str::limit($category->description, 70) }}</td>
                         <td>
-                            <a href='{{ route('back.parentCategory.edit', $category->id) }}' class='btn btn-primary m-r-lem'>
+                            <a href='{{ route('back.childCategory.edit', $category->id) }}' class='btn btn-primary m-r-lem'>
                                 <i class="fas fa-edit"></i> Editar
                             </a> 
-                            <a href='{{ route('back.parentCategory.destroy', $category->id) }}' class='btn btn-danger'>
+                            <a href='{{ route('back.childCategory.destroy', $category->id) }}' class='btn btn-danger'>
                                 <i class="fas fa-trash-alt"></i> Eliminar
                             </a>
                         </td>
