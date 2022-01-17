@@ -30,8 +30,7 @@
         </div>
         <div class="mb-3">
             <label for="description" class="form-label">Descripción</label>
-            <textarea name="description" id="description" class="form-control" required>{{ $category->description ?? '' }}
-            </textarea>
+            <textarea name="description" id="description" class="form-control" required>{{ $category->description ?? '' }}</textarea>
         </div>
         <div class="mb-3">
             <label for="parents" class="form-label">Categorías padre</label>

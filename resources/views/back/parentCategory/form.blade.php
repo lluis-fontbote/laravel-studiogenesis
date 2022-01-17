@@ -25,12 +25,11 @@
         <div class="mb-3">
             <label for="name" class="form-label">Nombre</label>
             <input type="text" class="form-control" id="name" name="name"
-                value="{{ $category->name ?? '' }}">
+                value="{{ $category->name ?? '' }}" required>
         </div>
         <div class="mb-3">
             <label for="description" class="form-label">Descripción</label>
-            <textarea name="description" id="description" class="form-control">{{ $category->description ?? '' }}
-            </textarea>
+            <textarea name="description" id="description" class="form-control" required>{{ $category->description ?? '' }}</textarea>
         </div>
         <div class="mb-3">
             <label for="children" class="form-label">Categorías hijas</label>
