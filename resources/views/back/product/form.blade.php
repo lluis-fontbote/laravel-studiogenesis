@@ -33,7 +33,7 @@
         </div>
         <div class="mb-3">
             <label for="categories" class="form-label">Categorías</label>
-            <select name="categories" id="categories" class="form-control">
+            <select name="categories[]" id="categories" class="form-control">
                 @if (isset($product) && $product->categories->count() > 0)
                     @foreach ($product->categories as $category)
                     <option value="{{ $category->id }}">{{ $category->name }}</option>
@@ -135,6 +135,9 @@
         multiple: true
     });
     
+    $('#categories').val([
+        {{ isset($product) ? $product->getAllCategoriesIDs() : ''}}
+    ]).change();
    });
 </script>
 

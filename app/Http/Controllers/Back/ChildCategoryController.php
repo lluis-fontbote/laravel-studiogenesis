@@ -39,8 +39,11 @@ class ChildCategoryController extends Controller
     {
         $category = Category::create([
             'name' => $request->name,
-            'description' => $request->description
+            'description' => $request->description,
+            'is_parent' => false
         ]);
+
+        $category->parents()->attach($request->parents);
 
         return view('back.childCategory.form', compact('category'))->with('actionOnCategory', 'Categoría creada correctamente');
     }
@@ -69,7 +72,10 @@ class ChildCategoryController extends Controller
         $category = Category::find($request->id);
         $category->name = $request->name;
         $category->description = $request->description;
+        $category->is_parent = false;
         $category->save();
+
+        $category->parents()->sync($request->parents);
 
         return view('back.childCategory.form', compact('category'))->with('actionOnCategory', 'Categoría actualizada correctamente');
     }

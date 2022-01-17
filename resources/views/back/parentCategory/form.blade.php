@@ -60,7 +60,7 @@
    document.addEventListener('DOMContentLoaded', function() {
     $('#children').select2({
         ajax: {
-            url: "{{ route('back.parentCategory.filter') }}",
+            url: "{{ route('back.childCategory.filter') }}",
             dataType: "JSON",
             type: "GET",
             processResults: function (data) {

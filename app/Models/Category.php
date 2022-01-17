@@ -40,4 +40,15 @@ class Category extends Model
 
         return implode(',', $arrayIDs);
     }
+
+    public function getAllParentsIDs()
+    {
+        $parents = $this->parents;
+        $arrayIDs = [];
+        foreach ($parents as $parent) {
+            array_push($arrayIDs, $parent->id);
+        }
+
+        return implode(',', $arrayIDs);
+    }
 }

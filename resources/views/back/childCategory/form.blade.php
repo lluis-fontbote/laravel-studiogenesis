@@ -35,7 +35,7 @@
         </div>
         <div class="mb-3">
             <label for="parents" class="form-label">Categorías padre</label>
-            <select name="parents" id="parents" class="form-control">
+            <select name="parents[]" id="parents" class="form-control">
                 @if (isset($category) && $category->parents->count() > 0)
                     @foreach ($category->parents as $parent)
                     <option value="{{ $parent->id }}">{{ $parent->name }}</option>
@@ -78,7 +78,9 @@
         allowClear: true,
         multiple: true
     });
-    
+    $('#parents').val([
+        {{ isset($category) ? $category->getAllParentsIDs() : ''}}
+    ]).change();
    });
 </script>
 @endsection

@@ -28,4 +28,15 @@ class Product extends Model
     {
         return $this->hasMany(Price::class);
     }
+
+    public function getAllCategoriesIDs()
+    {
+        $categories = $this->categories;
+        $arrayIDs = [];
+        foreach ($categories as $category) {
+            array_push($arrayIDs, $category->id);
+        }
+
+        return implode(',', $arrayIDs);
+    }
 }
