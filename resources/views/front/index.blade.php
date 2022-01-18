@@ -14,12 +14,12 @@
     @foreach ($parentCategories as $parent)
       <article class="filter-group">
         <header class="card-header">
-          <a href="#" data-bs-toggle="collapse" data-bs-target="#collapse_{{ $parent->id }}" aria-expanded="true" class="">
+          <a data-bs-toggle="collapse" href="#collapse_{{ $parent->id }}" role="button" aria-expanded="false" aria-controls="collapse_{{ $parent->id }}">
             <i class="icon-control fa fa-chevron-down"></i>
             <h6 class="title">{{ $parent->name }}</h6>
           </a>
         </header>
-        <div class="filter-content collapse show" id="collapse_{{ $parent->id }}" style="">
+        <div class="collapse" id="collapse_{{ $parent->id }}">
           <div class="card-body">
               @foreach ($parent->children as $child)
                 <label class="custom-control custom-checkbox">
@@ -64,7 +64,4 @@
 	</main>
 	</div>
 </div>
-@endsection
-
-@section('js')
 @endsection
