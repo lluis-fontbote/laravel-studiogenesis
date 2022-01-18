@@ -31,7 +31,7 @@ class FrontController extends Controller
     public function filter(Request $request)
     {
         if ($request->categories_id == null) {
-            return redirect()->route('front.index');
+            return redirect()->route('index');
         }
 
         $categories = Category::limit(5)->get();

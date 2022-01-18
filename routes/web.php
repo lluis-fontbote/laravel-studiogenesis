@@ -14,6 +14,6 @@ use App\Http\Controllers\Front\FrontController;
 |
 */
 
-Route::get('/', [FrontController::class, 'index']);
+Route::get('/', [FrontController::class, 'index'])->name('index');
 Route::get('/filtar', [FrontController::class, 'filter'])->name('front.filter');
 
