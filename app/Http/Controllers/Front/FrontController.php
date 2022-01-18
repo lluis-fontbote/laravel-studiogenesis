@@ -16,8 +16,9 @@ class FrontController extends Controller
      */
     public function index()
     {
-        $categories = Category::limit(5)->get();
-        
+        $parentCategories = Category::where('is_parent', true)
+                                    ->with('children')->get();
+
         $products = Product::with([
             'categories', 'photos', 
             'prices' => function($q) {
@@ -25,7 +26,7 @@ class FrontController extends Controller
                   ->where('end_date', '>=', now());
         }])->paginate(9);
 
-        return view('front.index', compact('products', 'categories'));
+        return view('front.index', compact('products', 'parentCategories'));
     }
 
     public function filter(Request $request)
@@ -34,7 +35,9 @@ class FrontController extends Controller
             return redirect()->route('index');
         }
 
-        $categories = Category::limit(5)->get();
+        $parentCategories = Category::where('is_parent', true)
+                                    ->with('children')->get();
+
         $products = Product::with([
             'categories', 'photos', 
             'prices' => function($q) {
@@ -44,6 +47,6 @@ class FrontController extends Controller
             $q->whereIn('categories.id', $request->categories_id);
         })->paginate(9)->withQueryString();
 
-        return view('front.index', compact('products', 'categories'));
+        return view('front.index', compact('products', 'parentCategories'));
     }
 }
