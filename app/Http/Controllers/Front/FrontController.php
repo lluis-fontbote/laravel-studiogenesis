@@ -22,8 +22,7 @@ class FrontController extends Controller
             'categories', 'photos', 
             'prices' => function($q) {
                 $q->where('start_date', '<=', now())
-                  ->where('end_date', '>=', now())
-                  ->first();
+                  ->where('end_date', '>=', now());
         }])->paginate(9);
 
         return view('front.index', compact('products', 'categories'));

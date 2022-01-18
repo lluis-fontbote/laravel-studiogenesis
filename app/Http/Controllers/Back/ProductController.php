@@ -49,7 +49,6 @@ class ProductController extends Controller
 
         $product->prices()->delete();
         if (isset($request->amount)) {
-            $priceIDs = [];
             for ($i = 0;  $i < count($request->amount);  $i++) {
                 $price = Price::create([
                     'amount' => $request->amount[$i],
@@ -57,7 +56,6 @@ class ProductController extends Controller
                     'end_date' => $request->endDate[$i],
                     'product_id' => $product->id
                 ]);
-                array_push($priceIDs, $price->id);
             }
         }
 
@@ -115,7 +113,6 @@ class ProductController extends Controller
 
         $product->prices()->delete();
         if (isset($request->amount)) {
-            $priceIDs = [];
             for ($i = 0;  $i < count($request->amount);  $i++) {
                 $price = Price::create([
                     'amount' => $request->amount[$i],
@@ -123,7 +120,6 @@ class ProductController extends Controller
                     'end_date' => $request->endDate[$i],
                     'product_id' => $product->id
                 ]);
-                array_push($priceIDs, $price->id);
             }
         }
 

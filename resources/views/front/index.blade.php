@@ -98,7 +98,7 @@
           <div class="fix-height">
             <a href="#" class="title">{{ $product->name }}</a>
             <div class="price-wrap mt-2">
-              <span class="price">{{ $product->prices->first()->amount ?? '' }}</span>
+              <span class="price">{{ $product->prices->first()->amount . ' €' ?? '' }}</span>
             </div> <!-- price-wrap.// -->
           </div>
           <a href="#" class="btn btn-block btn-primary">Add to cart </a>
