@@ -28,8 +28,7 @@
         </div>
         <div class="mb-3">
             <label for="description" class="form-label">Descripción</label>
-            <textarea name="description" id="description" class="form-control">{{$product->description ?? ''}}
-            </textarea>
+            <textarea name="description" id="description" class="form-control">{{$product->description ?? ''}}</textarea>
         </div>
         <div class="mb-3">
             <label for="categories" class="form-label">Categorías</label>
