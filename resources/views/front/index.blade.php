@@ -63,7 +63,7 @@
 		<header class="card-header">
 			<a href="#" data-toggle="collapse" data-target="#collapse_2" aria-expanded="true" class="">
 				<i class="icon-control fa fa-chevron-down"></i>
-				<h6 class="title">Categories</h6>
+				<h6 class="title">Categorias</h6>
 			</a>
 		</header>
 		<div class="filter-content collapse show" id="collapse_2" style="">
