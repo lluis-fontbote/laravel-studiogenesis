@@ -23,7 +23,7 @@ class FrontController extends Controller
             'prices' => function($q) {
                 $q->where('start_date', '<=', now())
                   ->where('end_date', '>=', now());
-        }])->paginate(9);
+        }])->paginate(2);
 
         return view('front.index', compact('products', 'categories'));
     }
@@ -38,7 +38,7 @@ class FrontController extends Controller
                   ->where('end_date', '>=', now());
         }])->whereHas('categories', function($q) use ($request) {
             $q->whereIn('categories.id', $request->categories_id);
-        })->paginate(9);
+        })->paginate(2)->withQueryString();
 
         return view('front.index', compact('products', 'categories'));
     }

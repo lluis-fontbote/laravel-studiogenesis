@@ -68,7 +68,7 @@
 		</header>
 		<div class="filter-content collapse show" id="collapse_2" style="">
 			<div class="card-body">
-        <form action="{{ route('front.filter') }}" method="POST">
+        <form action="{{ route('front.filter') }}" method="GET">
           @csrf
           @foreach ($categories as $category)
             <label class="custom-control custom-checkbox">
