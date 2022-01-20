@@ -14,7 +14,7 @@
     @foreach ($parentCategories as $parent)
       <article class="filter-group">
         <header class="card-header">
-          <a data-bs-toggle="collapse" href="#collapse_{{ $parent->id }}" role="button" aria-expanded="false" aria-controls="collapse_{{ $parent->id }}">
+          <a data-bs-toggle="collapse" href="javascript:void(0);" data-bs-target="#collapse_{{ $parent->id }}" role="button" aria-expanded="false" aria-controls="collapse_{{ $parent->id }}">
             <i class="icon-control fa fa-chevron-down"></i>
             <h6 class="title">{{ $parent->name }}</h6>
           </a>
